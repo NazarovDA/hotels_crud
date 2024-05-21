@@ -13,15 +13,15 @@ app.get('/isAlive', (req, res) => {
   res.json({'isAlive': true});
 })
 
-app.post('/users', validateRequestAsync({body: PostBody}), asyncHandler(async (req, res) => {
+app.post('/users', asyncHandler(validateRequestAsync({body: PostBody})), asyncHandler(async (req, res) => {
   res.json(await databaseHandler.create(req.body.name));
 }))
 
-app.get("/users", validateRequestAsync({body: GetBody}), asyncHandler(async (req, res) => {
+app.get("/users", asyncHandler(validateRequestAsync({body: GetBody})), asyncHandler(async (req, res) => {
   res.json(await databaseHandler.read(req.body.id));
 }))
 
-app.put("/users", validateRequestAsync({body: PutBody}), asyncHandler(async(req, res) => {
+app.put("/users", asyncHandler(validateRequestAsync({body: PutBody})), asyncHandler(async(req, res) => {
   res.json(
     await databaseHandler.update(
       req.body.id, req.body.new_name
@@ -29,7 +29,7 @@ app.put("/users", validateRequestAsync({body: PutBody}), asyncHandler(async(req,
   )
 }))
 
-app.delete("/users", validateRequestAsync({body: DeleteBody}), asyncHandler(async (req, res) => {
+app.delete("/users", asyncHandler(validateRequestAsync({body: DeleteBody})), asyncHandler(async (req, res) => {
   res.json(await databaseHandler.delete(req.body.id));
 }))
 
