@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+      "moduleResolution": "NodeNext",
+      "module": "NodeNext",
+      "target": "ES2016",
       "esModuleInterop": true,
       "outDir": "dist",
       "baseUrl": "."
