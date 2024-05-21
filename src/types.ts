@@ -9,15 +9,15 @@ export const PostBody = z.object({
 });;
 
 export const PutBody = z.object({
-  id: z.number().int(),
+  id: z.never().optional(),
   new_name: z.string().min(1),
 });
 
-export const DeleteBody = z.object({
-  id: z.number().int(),
-});;
+export const DeleteParams = z.object({
+  id: z.coerce.number().int(),
+});
 
-export type GetParams = z.infer<typeof GetParams>
-export type PostBody = z.infer<typeof PostBody>
-export type PutBody = z.infer<typeof PutBody>
-export type DeleteBody = z.infer<typeof DeleteBody>
+export type GetParams = z.infer<typeof GetParams>;
+export type PostBody = z.infer<typeof PostBody>;
+export type PutBody = z.infer<typeof PutBody>;
+export type DeleteParams = z.infer<typeof DeleteParams>;
