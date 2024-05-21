@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
 export const GetParams = z.object({
-  id: z.number().int().optional(),
+  id: z.coerce.number().int().optional(),
 });
 
 export const PostBody = z.object({
