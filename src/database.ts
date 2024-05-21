@@ -52,7 +52,7 @@ class DatabaseHandler {
     if (!this.table_created) await this.createBase();
     if (id) {
       const result = await this.db.get(
-        `SELECT * FROM users WHERE id = :id returning id, name`,
+        `SELECT * FROM users WHERE id = :id`,
         { ':id': id }
       );
       return result;

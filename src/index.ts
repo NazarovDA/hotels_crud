@@ -1,7 +1,7 @@
 import express from "express";
 import { getHandler } from "./database";
 import type { DBHandler } from "./database";
-import { PostBody, GetBody, PutBody, DeleteBody } from "./types";
+import { PostBody, PutBody, DeleteBody, GetParams } from "./types";
 import { asyncHandler, errorHandler, notFound, validateRequestAsync } from "./middleware";
 
 const app = express()
@@ -9,7 +9,7 @@ app.use(express.json())
 
 const port = 8080;
 
-app.get('/isAlive', (req, res) => {
+app.get('/isAlive', (_, res) => {
   res.json({'isAlive': true});
 })
 
@@ -17,8 +17,11 @@ app.post('/users', asyncHandler(validateRequestAsync({body: PostBody})), asyncHa
   res.json(await databaseHandler.create(req.body.name));
 }))
 
-app.get("/users", asyncHandler(validateRequestAsync({body: GetBody})), asyncHandler(async (req, res) => {
-  res.json(await databaseHandler.read(req.body.id));
+app.get("/users/:id", asyncHandler(validateRequestAsync({params: GetParams})), asyncHandler(async (req, res) => {
+  res.json(await databaseHandler.read(req.params.id));
+}))
+app.get("/users", asyncHandler(async (_, res) => {
+  res.json(await databaseHandler.read());
 }))
 
 app.put("/users", asyncHandler(validateRequestAsync({body: PutBody})), asyncHandler(async(req, res) => {
